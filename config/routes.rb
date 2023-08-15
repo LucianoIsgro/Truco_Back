@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   resources :games do
     get '/players', to: 'games#players'  
     post '/deal', to: 'games#deal'
-    delete '/delete', to: 'player_games#delete_player_game'
+    delete '/leave', to: 'player_games#delete_player_game'
     post 'player_cards/:id', to:'player_cards#create'
   end
   

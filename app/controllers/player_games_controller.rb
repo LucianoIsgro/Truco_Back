@@ -1,6 +1,6 @@
 class PlayerGamesController < ApplicationController
 
-    before_action :set_player, only: [:create]
+    before_action :set_player, only: [:create, :delete_player_game]
 
 
     def set_player
@@ -49,18 +49,17 @@ class PlayerGamesController < ApplicationController
     end
 
     def delete_player_game
-      @player_game = PlayerGame.find_by(game_id: params[:game_id])
-       
+      @player_game = PlayerGame.find_by(game_id: params[:game_id],player_id: @player.id)
       respond_to do |format|
           if @player_game.destroy
           format.json {render status: 200, json: {message: "Se eliminó el juego"} }
           else
           format.json { render status: 400, json: {message: @player_game.errors.full_messages}}   
           end
-      end
+        
     
     end
-
+  end
 
 
 
