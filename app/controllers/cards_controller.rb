@@ -6,11 +6,7 @@ class CardsController < ApplicationController
         format.json {render status: 200, json: Card.all }
         end
         
-    end
-
-    
-
-    
+    end 
 
     def create
         @card=Card.create(card_params)
