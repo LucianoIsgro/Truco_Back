@@ -21,7 +21,11 @@ class GamesController < ApplicationController
     def players
         @game = Game.find_by(id: params[:game_id])
         respond_to do |format|
-            format.json{render status:200, json: @game.players}
+            if @game.present?
+                format.json{render status:200, json: @game.players}
+            else
+                format.json{render status:400, json: :no_exist}
+            end
         end
     end
 
