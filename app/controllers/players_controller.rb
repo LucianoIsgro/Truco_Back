@@ -12,13 +12,12 @@ class PlayersController < ApplicationController
     def me
         current_player
         respond_to do |format|
-            if(@_current_player.present?)
-              format.json { render status: 200, json: @_current_player}
-            else
-              format.json {render status: 400, json: :no_exist}
-            end
+              format.json {render status:200,json:@_current_player}
         end
     end
+
+
+
     
 
     def index

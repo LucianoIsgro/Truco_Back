@@ -17,16 +17,14 @@ class LoginsController < ApplicationController
 
       def destroy 
         respond_to do |format|
-        if session.delete(:current_player_id)
-          format.json {render status: 200, json: {message: "Logout exitoso"}}
+        if session&.delete(:current_player_id)
           @_current_player = nil
+          format.json {render status: 200, json: {message: "Logout exitoso"}}
+          
         else
           format.json {render status: 400, json: {message: "No se deslogeo"}}
         end
         end
        # redirect_to root_url, status: :see_other
       end
-
-
-    
 end
