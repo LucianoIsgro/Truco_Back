@@ -15,12 +15,17 @@ Rails.application.routes.draw do
   
   resources :players do 
     get '/cards', to: 'players#cards'
+    get '/player_cards', to: 'player_cards#get_player_cards'
+    get '/dropped_player_cards', to: 'player_cards#dropped' 
     put '/irse', to: 'players#irse'
   end
   
   resources :cards do 
     delete 'player_card', to: 'player_cards#delete_player_card'
-  
+    
+    put 'drop', to: 'player_cards#drop_player_card'
+    
+
   end
 
   resources :games do

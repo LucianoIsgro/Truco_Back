@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
 
     before_action :set_player, only: [:create]
+    before_action :set_cards, only: [:create]
     before_action :set_game, only: [:show,:update,:destroy]
 
   
@@ -16,6 +17,20 @@ class GamesController < ApplicationController
         format.json { render status: 401}
       end 
     
+    end
+
+    def set_cards 
+        @cards= Card.all
+        if @game.present?
+            return if @cards.present?
+        else
+            return if @cards.present?
+        end
+        
+        respond_to do |format|
+            format.json {render status: 401}
+        end
+
     end
 
     def players
@@ -48,7 +63,7 @@ class GamesController < ApplicationController
     def create
         @game = Game.new(game_params)
         @game.player = @player
-        @game.cards = Card.all
+        @game.cards = @cards
         respond_to do |format|
             if @game.save
                 #player_game=PlayerGame.new(game_id: @game.id)
@@ -89,7 +104,9 @@ class GamesController < ApplicationController
             player_card.player = player
             player_card.card = deck[0]
             deck.delete_at(0)
-            player_card.save           
+            player_card.save
+            
+            return render status:200, json: {message: "Cartas entregadas"}
     
         else
            return render status:400, json: {message: "Ya tiene cartas"}

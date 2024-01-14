@@ -4,7 +4,7 @@ class CreateCards < ActiveRecord::Migration[7.0]
 
       t.integer :numero
       t.column :pinta, :integer
-      t.belongs_to :game, foreign_key: true, null: true
+      #t.belongs_to :game, foreign_key: true, null: true
       t.timestamps
     end  
   end

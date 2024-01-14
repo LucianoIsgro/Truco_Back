@@ -10,14 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_25_202106) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_17_002310) do
   create_table "cards", force: :cascade do |t|
     t.integer "numero"
     t.integer "pinta"
-    t.integer "game_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_cards_on_game_id"
+  end
+
+  create_table "cards_games", id: false, force: :cascade do |t|
+    t.integer "card_id"
+    t.integer "game_id"
+    t.index ["card_id"], name: "index_cards_games_on_card_id"
+    t.index ["game_id"], name: "index_cards_games_on_game_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -31,6 +36,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_202106) do
   end
 
   create_table "player_cards", force: :cascade do |t|
+    t.boolean "dropped", default: false
+    t.integer "order"
     t.integer "player_id"
     t.integer "card_id"
     t.datetime "created_at", null: false
@@ -55,7 +62,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_202106) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "cards", "games"
   add_foreign_key "games", "players"
   add_foreign_key "player_cards", "cards"
   add_foreign_key "player_cards", "players"

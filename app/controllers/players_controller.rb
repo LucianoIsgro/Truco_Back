@@ -1,13 +1,21 @@
 class PlayersController < ApplicationController
    
-    before_action :set_player, only:[:update,:cards]
+    before_action :set_player, only:[:update,:cards,:dropped]
 
-
+    #Lo estoy haciendo de otra forma en player_cards
     def cards
         respond_to do |format|
             format.json { render status: 200, json: @player.cards}
         end
     end
+    
+    #Este ya no sirve
+    def dropped
+      respond_to do |format|
+        format.json {render status: 200, json: @player.cards.where(dropped: :true)}
+      end
+    end
+    
 
     def me
         current_player
