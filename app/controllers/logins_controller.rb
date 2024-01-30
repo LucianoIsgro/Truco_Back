@@ -7,7 +7,7 @@ class LoginsController < ApplicationController
         if player&.authenticate(params[:password]) #el & sirve para ver si el player esta presente, para no hacer otro if.
           session[:current_player_id] = player.id
           #redirect_to root_url
-          format.json {render status: 200, json: {message: "Iniciaste sesion"}}
+          format.json {render status: 200, json: player } ##{message: "Iniciaste sesion"}
         else
           format.json{render status: 401, json: {message: "No"}}
             
